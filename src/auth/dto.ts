@@ -1,7 +1,6 @@
 import {
 	IsEmail, IsNotEmpty, MinLength,
 } from 'class-validator';
-import { AuthUtil } from './auth.util';
 
 export class RegisterDto {
 	@IsNotEmpty() name: string;

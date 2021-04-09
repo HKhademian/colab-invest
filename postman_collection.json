@@ -1,0 +1,284 @@
+{
+	"info": {
+		"_postman_id": "4e77c20f-7551-4272-aff7-10164d79b5c3",
+		"name": "Collab Invest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "/auth/register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json();",
+									"// console.log(jsonData);",
+									"if(jsonData.access_token){",
+									"    pm.environment.set('AUTH', jsonData.access_token);",
+									"    console.info('new auth tocken set to env');",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Hossain",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "hco@post.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "98 9334815552",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "13741382",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL_AUTH}}/register",
+							"host": [
+								"{{URL_AUTH}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/auth/login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json();",
+									"// console.log(jsonData);",
+									"if(jsonData.access_token){",
+									"    pm.environment.set('AUTH', jsonData.access_token);",
+									"    console.info('new auth tocken set to env');",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email_phone",
+									"value": "9334815552",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "13741382",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL_AUTH}}/login",
+							"host": [
+								"{{URL_AUTH}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/auth/testJWT",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URL_AUTH}}/testJWT",
+							"host": [
+								"{{URL_AUTH}}"
+							],
+							"path": [
+								"testJWT"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "/account",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_ACCOUNT}}/",
+							"host": [
+								"{{URL_ACCOUNT}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/assets/wallets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_ACCOUNT}}/assets/wallets",
+							"host": [
+								"{{URL_ACCOUNT}}"
+							],
+							"path": [
+								"assets",
+								"wallets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/assets/workers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_ACCOUNT}}/assets/workers",
+							"host": [
+								"{{URL_ACCOUNT}}"
+							],
+							"path": [
+								"assets",
+								"workers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL_BASE}}/",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "password",
+				"value": "{{{{{{AUTH}}}}}}",
+				"type": "string"
+			},
+			{
+				"key": "token",
+				"value": "{{AUTH}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL_BASE",
+			"value": "http://[::1]:3000"
+		},
+		{
+			"key": "URL_AUTH",
+			"value": "http://[::1]:3000/auth"
+		},
+		{
+			"key": "URL_ACCOUNT",
+			"value": "http://[::1]:3000/account"
+		},
+		{
+			"key": "AUTH",
+			"value": ""
+		}
+	]
+}

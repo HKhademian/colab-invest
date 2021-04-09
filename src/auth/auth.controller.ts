@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Request, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto';
-import { JwtAuthGuard, LocalAuthGuard } from './auth.guard';
+import { UseJwtAuthGuard, UseLocalAuthGuard } from './auth.guard';
 
 @Controller('/auth')
 export class AuthController {
@@ -17,14 +17,14 @@ export class AuthController {
 		return await this.authService.login(reg_user);
 	}
 
-	@UseGuards(LocalAuthGuard)
+	@UseLocalAuthGuard()
 	@Post('/login')
 	async login(@Request() req) {
 		return this.authService.login(req.user);
 	}
 
 
-	@UseGuards(JwtAuthGuard)
+	@UseJwtAuthGuard()
 	@Post('/testJWT')
 	async testJWT(@Request() req) {
 		return this.authService.encapsulate(req.user);
