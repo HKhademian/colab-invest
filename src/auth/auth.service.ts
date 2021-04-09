@@ -41,7 +41,7 @@ export class AuthService {
 	}
 
 	encapsulate(user: User): User {
-		if (user.role != 'admin') delete user.role;
+		// if (user.role != 'admin') delete (user as any).role;
 		delete user.password;
 		delete user.authId;
 		return user;

@@ -5,11 +5,15 @@ import { UserStatics } from './userStatic.data';
 import { generateId } from '../util';
 import { IsEmail } from 'class-validator';
 import { AuthUtil } from '../auth/auth.util';
+import { Role } from '../auth/role.enum';
 
 @Entity()
 export class User implements UserData {
 	@PrimaryColumn()
 	readonly userId: string;
+
+	@Column()
+	readonly role: Role;
 
 	@Column({ nullable: true })
 	authId: string;
@@ -26,9 +30,6 @@ export class User implements UserData {
 
 	@Column()
 	phone: string;
-
-	@Column('varchar', { nullable: true })
-	role: 'admin' | undefined;
 
 	@Column()
 	password: string;
@@ -54,6 +55,8 @@ export class User implements UserData {
 	) {
 		Object.assign(this, {
 			userId: source?.userId || generateId(),
+			role: source?.role || base?.role || 'user',
+			authId: source?.authId || base?.authId || undefined,
 			name: source?.name || base?.name || undefined,
 			title: source?.title || base?.title || undefined,
 			email: source?.email || base?.email || undefined,
@@ -80,6 +83,9 @@ export class User implements UserData {
 
 type UserData = {
 	userId: string;
+	role: Role;
+	authId: string;
+
 	name: string;
 	title: string;
 
