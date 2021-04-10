@@ -1,6 +1,6 @@
 import { User } from './user.entity';
 import { Column, DeepPartial } from 'typeorm';
-import { errVal } from '../util';
+import { errVal } from '../../util';
 
 export type SharePolicyData = {
 	user: string | User;

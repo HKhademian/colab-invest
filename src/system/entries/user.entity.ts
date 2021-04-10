@@ -1,11 +1,11 @@
-import { Entity, Column, PrimaryColumn, DeepPartial, Unique } from 'typeorm';
+import { Entity, Column, PrimaryColumn, DeepPartial } from 'typeorm';
 import { SharePolicy, SharePolicyData } from './sharePolicy.data';
 import { InvestPolicy } from './investPolicy.data';
 import { UserStatics } from './userStatic.data';
-import { generateId } from '../util';
+import { generateId } from '../../util';
 import { IsEmail } from 'class-validator';
-import { AuthUtil } from '../auth/auth.util';
-import { Role } from '../auth/role.enum';
+import { AuthUtil } from '../../auth/auth.util';
+import { Role } from '../../auth/role.enum';
 
 @Entity()
 export class User implements UserData {
