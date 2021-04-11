@@ -17,7 +17,7 @@ export class CoinService {
 	}
 
 	findAll() {
-		return `This action returns all coin`;
+		return this.coinRepo.find();
 	}
 
 	findOne(id: string) {

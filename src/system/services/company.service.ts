@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCompanyDto, UpdateCompanyDto } from '../dto/company.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Coin } from '../entries/coin.entity';
 import { Repository } from 'typeorm';
 import { Company } from '../entries/company.entity';
 
@@ -18,7 +17,7 @@ export class CompanyService {
 	}
 
 	findAll() {
-		return `This action returns all company`;
+		return this.companyRepo.find();
 	}
 
 	findOne(id: string) {

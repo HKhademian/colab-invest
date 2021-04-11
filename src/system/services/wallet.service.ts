@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateWalletDto, UpdateWalletDto } from '../dto/wallet.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Coin } from '../entries/coin.entity';
 import { Repository } from 'typeorm';
 import { Wallet } from '../entries/wallet.entity';
 
@@ -18,7 +17,7 @@ export class WalletService {
 	}
 
 	findAll() {
-		return `This action returns all wallet`;
+		return this.walletRepo.find();
 	}
 
 	findOne(id: string) {

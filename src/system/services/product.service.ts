@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProductDto, UpdateProductDto } from '../dto/product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Coin } from '../entries/coin.entity';
 import { Repository } from 'typeorm';
 import { Product } from '../entries/product.entity';
 
@@ -18,7 +17,7 @@ export class ProductService {
 	}
 
 	findAll() {
-		return `This action returns all product`;
+		return this.productRepo.find();
 	}
 
 	findOne(id: string) {

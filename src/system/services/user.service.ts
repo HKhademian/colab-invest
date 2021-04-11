@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from '../dto/user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Coin } from '../entries/coin.entity';
 import { Repository } from 'typeorm';
 import { User } from '../entries/user.entity';
 import { isEmail } from 'class-validator';
@@ -21,7 +20,7 @@ export class UserService {
 	}
 
 	findAll() {
-		return `This action returns all user`;
+		return this.userRepo.find();
 	}
 
 	findOne(id: string) {

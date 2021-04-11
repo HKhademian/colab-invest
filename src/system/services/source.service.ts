@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSourceDto, UpdateSourceDto } from '../dto/source.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Coin } from '../entries/coin.entity';
 import { Repository } from 'typeorm';
 import { Source } from '../entries/source.entity';
 
@@ -18,7 +17,7 @@ export class SourceService {
 	}
 
 	findAll() {
-		return `This action returns all source`;
+		return this.sourceRepo.find();
 	}
 
 	findOne(id: string) {
