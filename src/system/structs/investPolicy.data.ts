@@ -18,7 +18,8 @@ export class InvestPolicy implements InvestPolicyData {
 	private constructor() {
 	}
 
-	static from(data?: number | DeepPartial<InvestPolicyData>, base?: InvestPolicy): InvestPolicy {
+	static from(data?: null | number | DeepPartial<InvestPolicyData>, base?: InvestPolicy): InvestPolicy | undefined {
+		if (data === null) return undefined;
 		return Object.assign(new InvestPolicy(), {
 			startTime: typeof data == 'number' ? -1 : data ? data.startTime : base ? base.startTime : 0,
 			endTime: typeof data == 'number' ? -1 : data ? data.endTime : base ? base.endTime : 0,
@@ -26,7 +27,9 @@ export class InvestPolicy implements InvestPolicyData {
 		} as InvestPolicy);
 	}
 
-	static fromList(data?: number | DeepPartial<InvestPolicyData> | DeepPartial<InvestPolicyData[]>, base?: InvestPolicy[]): InvestPolicy[] {
+	static fromList(data?: null | number | DeepPartial<InvestPolicyData> | DeepPartial<InvestPolicyData[]>, base?: InvestPolicy[]): InvestPolicy[] | undefined {
+		if (data === null) return undefined;
+
 		if (data) {
 			return (Array.isArray(data) ? data : [data]).map(it => InvestPolicy.from(it));
 		}

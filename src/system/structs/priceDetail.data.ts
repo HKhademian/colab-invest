@@ -16,7 +16,8 @@ export class PriceDetail implements PriceDetailData {
 	private constructor() {
 	}
 
-	static from(data?: DeepPartial<PriceDetailData>, base?: PriceDetail): PriceDetail {
+	static from(data?: null | DeepPartial<PriceDetailData>, base?: PriceDetail): PriceDetail | undefined {
+		if (data === null) return undefined;
 		return Object.assign(new PriceDetail(), {
 			coinId: BaseEntity.getId(data?.coinId, base?.coinId),
 			value: data?.value || base?.value || 0,

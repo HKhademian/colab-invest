@@ -14,7 +14,8 @@ export class PowerDetail implements PowerDetailData {
 	private constructor() {
 	}
 
-	static from(data?: DeepPartial<PowerDetailData>, base?: PowerDetail): PowerDetail {
+	static from(data?: null | DeepPartial<PowerDetailData>, base?: PowerDetail): PowerDetail | undefined {
+		if (data === null) return undefined;
 		return Object.assign(new PowerDetail(), {
 			profit: data?.profit || base?.profit || 0,
 			unit: data?.unit || base?.unit || '?/s',

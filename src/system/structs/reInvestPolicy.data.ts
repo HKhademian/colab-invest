@@ -20,7 +20,8 @@ export class ReInvestPolicy implements ReInvestPolicyData {
 	private constructor() {
 	}
 
-	static from(data?: DeepPartial<ReInvestPolicyData>, base?: ReInvestPolicy): ReInvestPolicy {
+	static from(data?: null | DeepPartial<ReInvestPolicyData>, base?: ReInvestPolicy): ReInvestPolicy | undefined {
+		if (data === null) return undefined;
 		return Object.assign(new ReInvestPolicy(), {
 			productId: BaseEntity.getId(data?.productId, base?.productId),
 			minInterval: data?.minInterval === null ? 0 : data?.minInterval || base?.minInterval || 0,

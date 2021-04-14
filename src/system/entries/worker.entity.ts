@@ -54,7 +54,7 @@ export class Worker extends BaseEntity implements WorkerData {
 			power: data?.power || base?.power || 0,
 			efficiency: data?.efficiency || base?.efficiency || 0,
 			startTime: data?.startTime || base?.startTime || 0,
-			owners: Owner.from(data?.owners as OwnersData, base?.owners),
+			owners: Owner.fromList(data?.owners as OwnersData, base?.owners),
 			purchase: PurchaseDetail.from(data?.purchase, base?.purchase),
 		} as Worker);
 	};

@@ -16,7 +16,8 @@ export class SharePolicy implements SharePolicyData {
 	private constructor() {
 	}
 
-	static from(data?: DeepPartial<SharePolicyData>, base?: SharePolicy): SharePolicy {
+	static from(data?: null | DeepPartial<SharePolicyData>, base?: SharePolicy): SharePolicy | undefined {
+		if (data === null) return undefined;
 		return Object.assign(new SharePolicy(), {
 			userId: BaseEntity.getId(data?.userId, base?.userId),
 			share: data?.share != undefined ? data.share : base?.share != undefined ? base.share : 0,

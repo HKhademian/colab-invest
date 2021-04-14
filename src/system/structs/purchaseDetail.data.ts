@@ -3,6 +3,7 @@ import { Column, DeepPartial } from 'typeorm';
 import { CompanyData } from '../entries/company.entity';
 import { ProductData } from '../entries/product.entity';
 import { PriceDetail, PriceDetailData } from './priceDetail.data';
+import { BaseEntity } from '../entries/_base.entity';
 
 @ObjectType()
 export class PurchaseDetail implements PurchaseDetailData {
@@ -38,11 +39,25 @@ export class PurchaseDetail implements PurchaseDetailData {
 	@Column()
 	life: number;
 
+	@Field({ nullable: true })
+	@Column({ nullable: true })
+	desc?: string;
+
 	private constructor() {
 	}
 
-	static from(data?: DeepPartial<PurchaseDetailData>, base?: PurchaseDetail): PurchaseDetail {
-		return undefined;
+	static from(data?: null | DeepPartial<PurchaseDetailData>, base?: PurchaseDetail): PurchaseDetail | undefined {
+		if (data === null) return undefined;
+		return Object.assign(new PurchaseDetail(), {
+			type: data?.type || base?.type || undefined,
+			companyId: BaseEntity.getId(data?.companyId, base?.companyId),
+			productId: BaseEntity.getId(data?.productId, base?.productId),
+			factor: data?.factor || base?.factor || undefined,
+			count: data?.count || base?.count || 0,
+			price: PriceDetail.from(data?.price, base?.price),
+			date: data?.date || base?.date || undefined,
+			life: data?.life || base?.life || 0,
+		} as PurchaseDetail);
 	}
 }
 

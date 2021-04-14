@@ -36,7 +36,7 @@ export class Coin extends BaseEntity implements CoinData {
 			sign: data?.sign || base?.sign || 'NEW_COIN',
 			value: data?.value || base?.value || 0,
 			precision: data?.precision || base?.precision || 0,
-			power: data?.power === null ? undefined : PowerDetail.from(data?.power, base?.power),
+			power: PowerDetail.from(data?.power, base?.power),
 		} as Coin);
 	};
 }

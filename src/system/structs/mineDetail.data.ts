@@ -20,7 +20,8 @@ export class MineDetail implements MineDetailData {
 	private constructor() {
 	}
 
-	static from(data?: DeepPartial<MineDetailData>, base?: MineDetail): MineDetail {
+	static from(data?: null | DeepPartial<MineDetailData>, base?: MineDetail): MineDetail | undefined {
+		if (data === null) return undefined;
 		return Object.assign(new MineDetail(), {
 			coinId: BaseEntity.getId(data?.coinId, base?.coinId),
 			power: data?.power || base?.power || 0,

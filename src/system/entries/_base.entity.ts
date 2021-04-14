@@ -31,6 +31,6 @@ export class BaseEntity implements BaseEntityData {
 }
 
 export type BaseEntityData = {
-	_id: string;
+	readonly _id: string;
 	desc?: null | string;
 };

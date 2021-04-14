@@ -26,7 +26,8 @@ export class UserStatics implements UserStaticsData {
 	private constructor() {
 	}
 
-	static from(data?: DeepPartial<UserStatics>, base?: UserStatics): UserStatics {
+	static from(data?: null | DeepPartial<UserStatics>, base?: UserStatics): UserStatics | undefined {
+		if (data === null) return undefined;
 		return Object.assign(new UserStatics(), {
 			totalDispose: data ? data.totalDispose : base ? base.totalDispose : 0,
 			totalWithdraw: data ? data.totalWithdraw : base ? base.totalWithdraw : 0,

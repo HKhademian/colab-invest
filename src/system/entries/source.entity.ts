@@ -35,7 +35,7 @@ export class Source extends BaseEntity implements SourceData {
 	static from(data?: DeepPartial<SourceData>, base?: Source): Source {
 		return Object.assign(BaseEntity.assign(new Source(), data, base), {
 			companyId: Company.getId(data?.companyId, base?.companyId),
-			reinvest: data?.reinvest == null ? undefined : ReInvestPolicy.from(data?.reinvest, base?.reinvest),
+			reinvest: ReInvestPolicy.from(data?.reinvest, base?.reinvest),
 			title: data?.title == null ? undefined : data?.title || base?.title || 'new source',
 			login: data?.login == null ? undefined : data?.login || base?.login || undefined,
 			link: data?.link == null ? undefined : data?.link || base?.link || undefined,

@@ -73,11 +73,11 @@ export class User extends BaseEntity implements UserData {
 			email: data?.email || base?.email || undefined,
 			phone: data?.phone || base?.phone || undefined,
 			password: data?.password || base?.password || undefined,
-			managerShare: data?.managerShare === null ? undefined : SharePolicy.from(data?.managerShare, base?.managerShare),
-			charityShare: data?.charityShare === null ? undefined : SharePolicy.from(data?.charityShare, base?.charityShare),
-			agentsShare: data?.agentsShare === null ? undefined : SharePolicy.createList(data?.agentsShare, base?.agentsShare),
+			managerShare: SharePolicy.from(data?.managerShare, base?.managerShare),
+			charityShare: SharePolicy.from(data?.charityShare, base?.charityShare),
+			agentsShare: SharePolicy.createList(data?.agentsShare, base?.agentsShare),
 			invest: InvestPolicy.fromList(data?.invest, base?.invest),
-			statics: UserStatics.from(data?.statics, data?.statics !== null && base?.statics),
+			statics: UserStatics.from(data?.statics, base?.statics),
 		} as User);
 	}
 
