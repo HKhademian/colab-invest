@@ -3,13 +3,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
-import { AuthController } from './auth/auth.controller';
 import { AccountModule } from './account/account.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './auth/roles.guard';
 import { SystemModule } from './system/system.module';
-import { TypeOrmModuleOptions } from '@nestjs/typeorm/dist/interfaces/typeorm-options.interface';
-import { RouterModule, Routes } from 'nest-router';
+import { RouterModule } from 'nest-router';
+import { GqlModule } from './graphql/gql.module';
+import { GraphQLModule } from '@nestjs/graphql';
 
 
 @Module({
@@ -28,7 +28,15 @@ import { RouterModule, Routes } from 'nest-router';
 			synchronize: true,
 		}),
 
-		AuthModule, AccountModule, SystemModule,
+		AuthModule, AccountModule, SystemModule, GqlModule,
+
+		GraphQLModule.forRoot({
+			autoSchemaFile: true,
+			include: [GqlModule],
+			sortSchema: true,
+			// dateScalarMode: "timestamp",
+			context: ({ req }) => ({ currentUser: req.user }),
+		}),
 	],
 	controllers: [AppController],
 	providers: [

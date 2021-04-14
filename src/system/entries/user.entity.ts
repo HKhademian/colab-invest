@@ -1,72 +1,83 @@
-import { Entity, Column, PrimaryColumn, DeepPartial } from 'typeorm';
-import { SharePolicy, SharePolicyData } from './sharePolicy.data';
-import { InvestPolicy } from './investPolicy.data';
-import { UserStatics } from './userStatic.data';
-import { generateId } from '../../util';
+import { Entity, Column, DeepPartial } from 'typeorm';
 import { IsEmail } from 'class-validator';
 import { AuthUtil } from '../../auth/auth.util';
 import { Role } from '../../auth/role.enum';
+import { Field, ObjectType } from '@nestjs/graphql';
+import { SharePolicy, SharePolicyData } from '../structs/sharePolicy.data';
+import { InvestPolicy } from '../structs/investPolicy.data';
+import { UserStatics } from '../structs/userStatic.data';
+import { BaseEntity, BaseEntityData } from './_base.entity';
 
+@ObjectType()
 @Entity()
-export class User implements UserData {
-	@PrimaryColumn()
-	readonly userId: string;
-
+export class User extends BaseEntity implements UserData {
+	@Field()
 	@Column()
 	readonly role: Role;
 
+	@Field({ nullable: true })
 	@Column({ nullable: true })
 	authId: string;
 
+	@Field()
 	@Column({ length: 25 })
 	name: string;
 
+	@Field()
 	@Column({ length: 25 })
 	title: string;
 
-	@Column()
 	@IsEmail()
+	@Field()
+	@Column()
 	email: string;
 
+	@Field()
 	@Column()
 	phone: string;
 
+	@Field()
 	@Column()
 	password: string;
 
+	@Field({ nullable: true })
 	@Column('simple-json', { nullable: true })
 	managerShare?: SharePolicy;
 
+	@Field({ nullable: true })
 	@Column('simple-json', { nullable: true })
 	charityShare?: SharePolicy;
 
+	@Field(_ => [SharePolicy])
 	@Column('simple-json')
 	agentsShare: Array<SharePolicy>;
 
+	@Field(_ => [SharePolicy])
 	@Column('simple-json')
 	invest: Array<InvestPolicy>;
 
+	@Field()
 	@Column('simple-json')
 	statics: UserStatics;
 
-	constructor(
-		source?: DeepPartial<UserData>,
-		base?: Partial<User>,
-	) {
-		Object.assign(this, {
-			userId: source?.userId || generateId(),
-			role: source?.role || base?.role || 'user',
-			authId: source?.authId || base?.authId || undefined,
-			name: source?.name || base?.name || undefined,
-			title: source?.title || base?.title || undefined,
-			email: source?.email || base?.email || undefined,
-			phone: source?.phone || base?.phone || undefined,
-			password: source?.password || base?.password || undefined,
-			managerShare: source?.managerShare || base?.managerShare ? new SharePolicy(source?.managerShare, base?.managerShare) : undefined,
-			charityShare: source?.charityShare || base?.charityShare ? new SharePolicy(source?.charityShare, base?.charityShare) : undefined,
-			agentsShare: SharePolicy.createList(source?.agentsShare, base?.agentsShare),
-			invest: InvestPolicy.createList(source?.invest, base?.invest),
-			statics: new UserStatics(source?.statics, base?.statics),
+	private constructor() {
+		super();
+	}
+
+	static from(data?: DeepPartial<UserData>, base?: User): User {
+		return Object.assign(BaseEntity.assign(new User(), data, base), {
+			role: data?.role || base?.role || 'user',
+			authId: data?.authId || base?.authId || undefined,
+			name: data?.name || base?.name || undefined,
+			title: data?.title || base?.title || undefined,
+			email: data?.email || base?.email || undefined,
+			phone: data?.phone || base?.phone || undefined,
+			password: data?.password || base?.password || undefined,
+			managerShare: data?.managerShare === null ? undefined : SharePolicy.from(data?.managerShare, base?.managerShare),
+			charityShare: data?.charityShare === null ? undefined : SharePolicy.from(data?.charityShare, base?.charityShare),
+			agentsShare: data?.agentsShare === null ? undefined : SharePolicy.createList(data?.agentsShare, base?.agentsShare),
+			invest: InvestPolicy.fromList(data?.invest, base?.invest),
+			statics: UserStatics.from(data?.statics, data?.statics !== null && base?.statics),
 		} as User);
 	}
 
@@ -81,8 +92,7 @@ export class User implements UserData {
 
 }
 
-type UserData = {
-	userId: string;
+export type UserData = BaseEntityData & {
 	role: Role;
 	authId: string;
 
@@ -93,11 +103,11 @@ type UserData = {
 	phone: string;
 	password: string;
 
-	managerShare?: SharePolicyData;
-	charityShare?: SharePolicyData;
-	agentsShare: SharePolicyData | SharePolicyData[];
+	managerShare?: null | SharePolicyData;
+	charityShare?: null | SharePolicyData;
+	agentsShare: null | SharePolicyData | SharePolicyData[];
 
 	invest: number | InvestPolicy | InvestPolicy[];
 
-	statics: UserStatics;
+	statics: null | UserStatics;
 };

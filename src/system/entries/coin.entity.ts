@@ -1,35 +1,50 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, DeepPartial, Entity } from 'typeorm';
+import { Field, ObjectType } from '@nestjs/graphql';
+import { PowerDetail, PowerDetailData } from '../structs/powerDetail.data';
+import { BaseEntity, BaseEntityData } from './_base.entity';
 
+@ObjectType()
 @Entity()
-export class Coin implements CoinData {
-	@PrimaryColumn()
-	coinId: string;
-
+export class Coin extends BaseEntity implements CoinData {
+	@Field()
 	@Column()
 	title: string;
 
+	@Field()
 	@Column()
 	sign: string;
 
+	@Field()
 	@Column()
 	value: number;
 
+	@Field()
 	@Column()
 	precision: number;
 
+	@Field({ nullable: true })
 	@Column('simple-json', { nullable: true })
-	power?: { profit: number; unit: string; };
+	power?: PowerDetail;
 
-	@Column({ nullable: true })
-	desc?: string;
+	private constructor() {
+		super();
+	}
+
+	static from(data?: DeepPartial<CoinData>, base?: Coin): Coin {
+		return Object.assign(BaseEntity.assign(new Coin(), data, base), {
+			title: data?.title || base?.title || 'newCoin',
+			sign: data?.sign || base?.sign || 'NEW_COIN',
+			value: data?.value || base?.value || 0,
+			precision: data?.precision || base?.precision || 0,
+			power: data?.power === null ? undefined : PowerDetail.from(data?.power, base?.power),
+		} as Coin);
+	};
 }
 
-export type CoinData = {
-	coinId: string;
+export type CoinData = BaseEntityData & {
 	title: string;
 	sign: string;
 	value: number;
 	precision: number;
-	power?: 'no' | { profit: number; unit: string; }
-	desc?: string;
+	power?: null | PowerDetailData;
 };

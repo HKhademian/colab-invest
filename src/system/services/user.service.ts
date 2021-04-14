@@ -49,7 +49,7 @@ export class UserService {
 		phone = AuthUtil.toPhone(phone) || errHttp('phone required');
 		!await this.userRepo.findOne({ email }) || errHttp('email exists');
 		!await this.userRepo.findOne({ phone }) || errHttp('phone exists');
-		const user = new User({
+		const user = User.from({
 			name, title: 'New User',
 			email, phone, password: await AuthUtil.hashPassword(password),
 		});

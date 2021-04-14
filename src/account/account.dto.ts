@@ -1,6 +1,6 @@
 import { IsEmail, IsOptional } from 'class-validator';
-import { SharePolicyData } from '../system/entries/sharePolicy.data';
-import { InvestPolicy } from '../system/entries/investPolicy.data';
+import { SharePolicyData } from '../system/structs/sharePolicy.data';
+import { InvestPolicy } from '../system/structs/investPolicy.data';
 
 export class UpdateInfoDto {
 	@IsOptional() name?: string;
