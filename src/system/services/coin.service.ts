@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateCoinDto, UpdateCoinDto } from '../dto/coin.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Coin } from '../entries/coin.entity';
+import { Coin } from '../entities/coin.entity';
 
 @Injectable()
 export class CoinService {

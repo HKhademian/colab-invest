@@ -1,13 +1,13 @@
+import { Repository } from 'typeorm';
+import { isEmail } from 'class-validator';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { isEmail, isMobilePhone } from 'class-validator';
 import { JwtService } from '@nestjs/jwt';
-import { Repository } from 'typeorm';
-import { errHttp, generateId } from '../util';
-import { RegisterDto, VerifyDto } from './dto';
-import { AuthUtil } from './auth.util';
-import { User } from '../system/entries/user.entity';
+import { User } from '../system/entities/user.entity';
 import { UserService } from '../system/services/user.service';
+import { generateId } from '../util';
+import { RegisterDto } from './dto';
+import { AuthUtil } from './auth.util';
 
 type Auth = User;
 

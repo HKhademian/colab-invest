@@ -1,9 +1,9 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Column, DeepPartial } from 'typeorm';
-import { CompanyData } from '../entries/company.entity';
-import { ProductData } from '../entries/product.entity';
+import { CompanyData } from '../entities/company.entity';
+import { ProductData } from '../entities/product.entity';
+import { BaseEntity, DateData } from '../entities/_base.entity';
 import { PriceDetail, PriceDetailData } from './priceDetail.data';
-import { BaseEntity, DateData } from '../entries/_base.entity';
 
 @ObjectType()
 export class PurchaseDetail implements PurchaseDetailData {

@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Column, DeepPartial } from 'typeorm';
-import { User, UserData } from '../entries/user.entity';
-import { BaseEntity } from '../entries/_base.entity';
+import { User, UserData } from '../entities/user.entity';
+import { BaseEntity } from '../entities/_base.entity';
 
 @ObjectType()
 export class Owner implements OwnerData {

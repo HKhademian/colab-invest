@@ -1,7 +1,7 @@
 import { IsEmail, IsOptional } from 'class-validator';
+import { ArgsType, Field } from '@nestjs/graphql';
 import { SharePolicyData } from '../system/structs/sharePolicy.data';
 import { InvestPolicy } from '../system/structs/investPolicy.data';
-import { ArgsType, Field } from '@nestjs/graphql';
 
 @ArgsType()
 export class UpdateInfoDto {

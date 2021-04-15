@@ -1,7 +1,7 @@
 import { Query, Args, Resolver, ID } from '@nestjs/graphql';
 import { CoinService } from '../system/services/coin.service';
-import { Coin } from '../system/entries/coin.entity';
-import { Company } from '../system/entries/company.entity';
+import { Coin } from '../system/entities/coin.entity';
+import { Company } from '../system/entities/company.entity';
 
 @Resolver()
 export class TestResolver {

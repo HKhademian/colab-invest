@@ -1,8 +1,8 @@
 import * as bcrypt from 'bcrypt';
-import { parsePhoneNumber } from 'libphonenumber-js/mobile';
-import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { User } from '../system/entries/user.entity';
 import { GqlExecutionContext } from '@nestjs/graphql';
+import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import { parsePhoneNumber } from 'libphonenumber-js/mobile';
+import { User } from '../system/entities/user.entity';
 
 export module AuthUtil {
 	export function hashPassword(password: string): Promise<string> {

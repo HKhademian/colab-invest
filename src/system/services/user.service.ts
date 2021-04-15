@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from '../dto/user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from '../entries/user.entity';
+import { User } from '../entities/user.entity';
 import { isEmail } from 'class-validator';
 import { AuthUtil } from '../../auth/auth.util';
 import { errHttp } from '../../util';

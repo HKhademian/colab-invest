@@ -1,12 +1,12 @@
 import { Args, Resolver, Mutation, Query } from '@nestjs/graphql';
-import { UseJwtAuthGuard } from '../auth/auth.guard';
-import { AuthUtil } from '../auth/auth.util';
-import { User } from '../system/entries/user.entity';
-import { AuthService } from '../auth/auth.service';
+import { User } from '../system/entities/user.entity';
 import { UserService } from '../system/services/user.service';
 import { WalletService } from '../system/services/wallet.service';
 import { WorkerService } from '../system/services/worker.service';
-import { UpdateInfoDto, UpdatePolicyDto, UpdateUsernameDto } from '../account/account.dto';
+import { AuthService } from '../auth/auth.service';
+import { UseJwtAuthGuard } from '../auth/auth.guard';
+import { AuthUtil } from '../auth/auth.util';
+import { UpdateInfoDto, UpdatePolicyDto, UpdateUsernameDto } from './account.dto';
 
 @UseJwtAuthGuard()
 @Resolver()

@@ -1,7 +1,7 @@
 import { Column, DeepPartial } from 'typeorm';
 import { Field, ObjectType } from '@nestjs/graphql';
-import { UserData } from '../entries/user.entity';
-import { BaseEntity } from '../entries/_base.entity';
+import { UserData } from '../entities/user.entity';
+import { BaseEntity } from '../entities/_base.entity';
 
 @ObjectType()
 export class SharePolicy implements SharePolicyData {

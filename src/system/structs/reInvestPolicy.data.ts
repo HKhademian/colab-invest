@@ -1,7 +1,7 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Column, DeepPartial } from 'typeorm';
-import { ProductData } from '../entries/product.entity';
-import { BaseEntity } from '../entries/_base.entity';
+import { ProductData } from '../entities/product.entity';
+import { BaseEntity } from '../entities/_base.entity';
 
 @ObjectType()
 export class ReInvestPolicy implements ReInvestPolicyData {

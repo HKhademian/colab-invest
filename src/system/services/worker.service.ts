@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { CreateWorkerDto, UpdateWorkerDto } from '../dto/worker.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Worker } from '../entries/worker.entity';
-import { UserData } from '../entries/user.entity';
-import { BaseEntity } from '../entries/_base.entity';
+import { Worker } from '../entities/worker.entity';
+import { UserData } from '../entities/user.entity';
+import { BaseEntity } from '../entities/_base.entity';
 
 @Injectable()
 export class WorkerService {
