@@ -1,5 +1,8 @@
 import * as bcrypt from 'bcrypt';
 import { parsePhoneNumber } from 'libphonenumber-js/mobile';
+import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import { User } from '../system/entries/user.entity';
+import { GqlExecutionContext } from '@nestjs/graphql';
 
 export module AuthUtil {
 	export function hashPassword(password: string): Promise<string> {
@@ -19,4 +22,10 @@ export module AuthUtil {
 			phoneNumber.number.toString();
 	};
 
+	export const GetUser = createParamDecorator((data, context: ExecutionContext): User => {
+		if (context.getType() == 'http')
+			return context.switchToHttp().getRequest().user;
+		const ctx = GqlExecutionContext.create(context).getContext();
+		return ctx.req.user;
+	});
 }

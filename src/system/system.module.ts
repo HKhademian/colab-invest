@@ -19,15 +19,21 @@ import { ProductController } from './controllers/product.controller';
 import { SourceController } from './controllers/source.controller';
 import { UserController } from './controllers/user.controller';
 import { WalletController } from './controllers/wallet.controller';
+import { WorkerService } from './services/worker.service';
+import { WorkerController } from './controllers/worker.controller';
+import { Worker } from './entries/worker.entity';
+import { CoinResolver } from './resolvers/coin.resolver';
+import { CompanyResolver } from './resolvers/company.resolver';
 
-const entities = [Coin, Company, Product, Source, User, Wallet];
-const services = [CoinService, CompanyService, ProductService, SourceService, UserService, WalletService];
-const controllers = [CoinController, CompanyController, ProductController, SourceController, UserController, WalletController];
+const entities = [Coin, Company, Product, Source, User, Wallet, Worker];
+const services = [CoinService, CompanyService, ProductService, SourceService, UserService, WalletService, WorkerService];
+const resolvers = [CoinResolver, CompanyResolver];
+const controllers = [CoinController, CompanyController, ProductController, SourceController, UserController, WalletController, WorkerController];
 
 @Module({
 	imports: [TypeOrmModule.forFeature(entities)],
 	exports: [TypeOrmModule, ...services],
-	providers: [SystemService, ...services],
+	providers: [SystemService, ...services, ...resolvers],
 	controllers: [...controllers],
 })
 export class SystemModule {

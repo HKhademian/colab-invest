@@ -16,19 +16,19 @@ export class CoinService {
 		return 'This action adds a new coin';
 	}
 
-	findAll() {
+	findAll(): Promise<Coin[]> {
 		return this.coinRepo.find();
 	}
 
-	findOne(id: string) {
-		return `This action returns a #${id} coin`;
+	findOne(_id: string): Promise<Coin | undefined> {
+		return this.coinRepo.findOne({ _id });
 	}
 
-	update(id: string, dto: UpdateCoinDto) {
-		return `This action updates a #${id} coin`;
+	update(_id: string, dto: UpdateCoinDto): Promise<unknown> {
+		return this.coinRepo.update(_id, dto);
 	}
 
-	remove(id: string) {
-		return `This action removes a #${id} coin`;
+	remove(_id: string): Promise<unknown> {
+		return this.coinRepo.delete({ _id });
 	}
 }

@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCompanyDto, UpdateCompanyDto } from '../dto/company.dto';
+import { CreateCompanyDto } from '../dto/company.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Company } from '../entries/company.entity';
+import { UpdateCoinDto } from '../dto/coin.dto';
 
 @Injectable()
 export class CompanyService {
@@ -16,19 +17,19 @@ export class CompanyService {
 		return 'This action adds a new company';
 	}
 
-	findAll() {
+	findAll(): Promise<Company[]> {
 		return this.companyRepo.find();
 	}
 
-	findOne(id: string) {
-		return `This action returns a #${id} company`;
+	findOne(_id: string): Promise<Company | undefined> {
+		return this.companyRepo.findOne({ _id });
 	}
 
-	update(id: string, dto: UpdateCompanyDto) {
-		return `This action updates a #${id} company`;
+	update(_id: string, dto: UpdateCoinDto): Promise<unknown> {
+		return this.companyRepo.update(_id, dto);
 	}
 
-	remove(id: string) {
-		return `This action removes a #${id} company`;
+	remove(_id: string): Promise<unknown> {
+		return this.companyRepo.delete({ _id });
 	}
 }

@@ -3,6 +3,8 @@ import { CreateWalletDto, UpdateWalletDto } from '../dto/wallet.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Wallet } from '../entries/wallet.entity';
+import { BaseEntity } from '../entries/_base.entity';
+import { UserData } from '../entries/user.entity';
 
 @Injectable()
 export class WalletService {
@@ -30,5 +32,10 @@ export class WalletService {
 
 	remove(id: string) {
 		return `This action removes a #${id} wallet`;
+	}
+
+
+	findByUser(user: string | UserData): Promise<Wallet[]> {
+		return this.walletRepo.find({ userId: BaseEntity.getId(user) });
 	}
 }

@@ -3,6 +3,8 @@ import { CreateWorkerDto, UpdateWorkerDto } from '../dto/worker.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Worker } from '../entries/worker.entity';
+import { UserData } from '../entries/user.entity';
+import { BaseEntity } from '../entries/_base.entity';
 
 @Injectable()
 export class WorkerService {
@@ -30,5 +32,11 @@ export class WorkerService {
 
 	remove(id: string) {
 		return `This action removes a #${id} worker`;
+	}
+
+
+	async findByUser(user: string | UserData): Promise<Worker[]> {
+		const userId = BaseEntity.getId(user);
+		return (await this.workerRepo.find()).filter(it => !!it.owners.find(owner => owner.userId == userId));
 	}
 }

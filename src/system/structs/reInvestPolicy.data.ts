@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Column, DeepPartial } from 'typeorm';
 import { ProductData } from '../entries/product.entity';
 import { BaseEntity } from '../entries/_base.entity';
@@ -9,7 +9,7 @@ export class ReInvestPolicy implements ReInvestPolicyData {
 	@Column({ nullable: true })
 	productId?: string;
 
-	@Field()
+	@Field(_ => Int)
 	@Column()
 	minInterval: number;
 

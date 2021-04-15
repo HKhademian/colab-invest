@@ -3,7 +3,7 @@ import { Coin, CoinData } from './coin.entity';
 import { Source, SourceData } from './source.entity';
 import { User, UserData } from './user.entity';
 import { Field, ObjectType } from '@nestjs/graphql';
-import { BaseEntity, BaseEntityData } from './_base.entity';
+import { BaseEntity, BaseEntityData, DateData } from './_base.entity';
 
 @ObjectType()
 @Entity()
@@ -29,7 +29,7 @@ export class Wallet extends BaseEntity implements WalletData {
 
 	@Field()
 	@Column()
-	lastUpdate: number;
+	lastUpdate: Date;
 
 	@Field()
 	@Column()
@@ -45,7 +45,7 @@ export class Wallet extends BaseEntity implements WalletData {
 			coinId: Coin.getId(data?.coinId, base?.coinId),
 			userId: User.getId(data?.userId, base?.userId),
 			type: data?.type || base?.type || undefined,
-			lastUpdate: data?.lastUpdate || base?.lastUpdate || undefined,
+			lastUpdate: BaseEntity.getDate(data?.lastUpdate as DateData, base?.lastUpdate),
 			value: data?.value || base?.value || undefined,
 		} as Wallet);
 	};
@@ -56,7 +56,7 @@ export type WalletData = BaseEntityData & {
 	readonly sourceId: string | SourceData;
 	readonly userId?: null | string | UserData;
 	readonly type: WalletType,
-	lastUpdate: number;
+	lastUpdate: DateData;
 	value: number;
 };
 

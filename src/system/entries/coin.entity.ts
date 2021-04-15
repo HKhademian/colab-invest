@@ -1,5 +1,5 @@
 import { Column, DeepPartial, Entity } from 'typeorm';
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { PowerDetail, PowerDetailData } from '../structs/powerDetail.data';
 import { BaseEntity, BaseEntityData } from './_base.entity';
 
@@ -18,7 +18,7 @@ export class Coin extends BaseEntity implements CoinData {
 	@Column()
 	value: number;
 
-	@Field()
+	@Field(_ => Int)
 	@Column()
 	precision: number;
 

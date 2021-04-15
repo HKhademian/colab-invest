@@ -1,10 +1,10 @@
 import { Column, DeepPartial, Entity, OneToMany } from 'typeorm';
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Source, SourceData } from './source.entity';
 import { Coin, CoinData } from './coin.entity';
 import { Owner, OwnersData } from '../structs/ownersDetail.data';
 import { PurchaseDetail, PurchaseDetailData } from '../structs/purchaseDetail.data';
-import { BaseEntity, BaseEntityData } from './_base.entity';
+import { BaseEntity, BaseEntityData, DateData } from './_base.entity';
 
 @ObjectType()
 @Entity()
@@ -29,11 +29,11 @@ export class Worker extends BaseEntity implements WorkerData {
 
 	@Field()
 	@Column()
-	readonly startTime: number;
+	readonly startTime: Date;
 
 	@Field()
 	@Column()
-	readonly endTime: number;
+	readonly endTime: Date;
 
 	@Field(_ => [Owner])
 	@Column('simple-json')
@@ -53,7 +53,8 @@ export class Worker extends BaseEntity implements WorkerData {
 			coinId: Coin.getId(data?.coinId, base?.coinId),
 			power: data?.power || base?.power || 0,
 			efficiency: data?.efficiency || base?.efficiency || 0,
-			startTime: data?.startTime || base?.startTime || 0,
+			startTime: BaseEntity.getDate(data?.startTime as DateData, base?.startTime),
+			endTime: BaseEntity.getDate(data?.endTime as DateData, base?.endTime),
 			owners: Owner.fromList(data?.owners as OwnersData, base?.owners),
 			purchase: PurchaseDetail.from(data?.purchase, base?.purchase),
 		} as Worker);
@@ -65,8 +66,8 @@ export type WorkerData = BaseEntityData & {
 	readonly coinId: string | CoinData;
 	readonly power: number;
 	readonly efficiency: number;
-	readonly startTime: number;
-	readonly endTime: number;
+	readonly startTime: DateData;
+	readonly endTime: DateData;
 	readonly owners: OwnersData;
 	readonly purchase: PurchaseDetailData;
 };

@@ -1,20 +1,65 @@
+import { ArgsType, Field, ObjectType } from '@nestjs/graphql';
+import { Column } from 'typeorm';
 import {
 	IsEmail, IsNotEmpty, MinLength,
 } from 'class-validator';
 
+@ObjectType()
+export class LoginResult implements LoginResultData {
+	@Field() @Column()
+	readonly access_token: string;
+}
+
+export type LoginResultData = {
+	readonly access_token: string;
+}
+
+@ArgsType()
 export class RegisterDto {
-	@IsNotEmpty() name: string;
 
-	@IsEmail() email: string;
+	@IsNotEmpty()
+	@Field()
+	@Column()
+	name: string;
 
-	@IsNotEmpty() phone: string;
+	@IsEmail()
+	@Field()
+	@Column()
+	email: string;
 
-	@MinLength(8) password: string;
+	@IsNotEmpty()
+	@Field()
+	@Column()
+	phone: string;
+
+	@MinLength(8)
+	@Field()
+	@Column()
+	password: string;
 }
 
+@ArgsType()
+export class LoginDto {
+	@IsNotEmpty()
+	@Field()
+	@Column()
+	email_phone?: string;
+
+	@IsNotEmpty()
+	@Field()
+	@Column()
+	password: string;
+}
+
+@ArgsType()
 export class VerifyDto {
-	@IsNotEmpty() username?: string;
+	@IsNotEmpty()
+	@Field()
+	@Column()
+	username?: string;
 
-	@MinLength(8) password: string;
+	@MinLength(8)
+	@Field()
+	@Column()
+	password: string;
 }
-

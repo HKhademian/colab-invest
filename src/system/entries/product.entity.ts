@@ -1,6 +1,6 @@
 import { Column, DeepPartial, Entity, OneToMany } from 'typeorm';
 import { Company, CompanyData } from './company.entity';
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { PriceDetail, PriceDetailData } from '../structs/priceDetail.data';
 import { MineDetail, MineDetailData } from '../structs/mineDetail.data';
 import { BaseEntity, BaseEntityData } from './_base.entity';
@@ -13,7 +13,7 @@ export class Product extends BaseEntity implements ProductData {
 	@Column()
 	readonly companyId: string;
 
-	@Field()
+	@Field(_ => Int)
 	@Column()
 	life: number;
 

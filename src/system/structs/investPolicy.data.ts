@@ -1,13 +1,13 @@
 import { Column, DeepPartial } from 'typeorm';
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class InvestPolicy implements InvestPolicyData {
-	@Field()
+	@Field(_ => Int)
 	@Column()
 	readonly startTime: number;
 
-	@Field()
+	@Field(_ => Int)
 	@Column()
 	readonly endTime: number;
 

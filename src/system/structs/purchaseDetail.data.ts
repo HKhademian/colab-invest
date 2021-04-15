@@ -1,9 +1,9 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Column, DeepPartial } from 'typeorm';
 import { CompanyData } from '../entries/company.entity';
 import { ProductData } from '../entries/product.entity';
 import { PriceDetail, PriceDetailData } from './priceDetail.data';
-import { BaseEntity } from '../entries/_base.entity';
+import { BaseEntity, DateData } from '../entries/_base.entity';
 
 @ObjectType()
 export class PurchaseDetail implements PurchaseDetailData {
@@ -33,9 +33,9 @@ export class PurchaseDetail implements PurchaseDetailData {
 
 	@Field()
 	@Column()
-	date: string;
+	date: Date;
 
-	@Field()
+	@Field(_ => Int)
 	@Column()
 	life: number;
 
@@ -55,7 +55,7 @@ export class PurchaseDetail implements PurchaseDetailData {
 			factor: data?.factor || base?.factor || undefined,
 			count: data?.count || base?.count || 0,
 			price: PriceDetail.from(data?.price, base?.price),
-			date: data?.date || base?.date || undefined,
+			date: BaseEntity.getDate(data?.date as DateData, base?.date),
 			life: data?.life || base?.life || 0,
 		} as PurchaseDetail);
 	}
@@ -68,6 +68,6 @@ export type PurchaseDetailData = {
 	factor: string;
 	count: number;
 	price: PriceDetailData;
-	date: string;
+	date: DateData;
 	life: number;
 };

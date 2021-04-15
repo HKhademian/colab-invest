@@ -2,6 +2,8 @@ import { Body, Controller, Post, Request, UnauthorizedException, UseGuards } fro
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto';
 import { UseJwtAuthGuard, UseLocalAuthGuard } from './auth.guard';
+import { AuthUtil } from './auth.util';
+import { User } from '../system/entries/user.entity';
 
 @Controller('/auth')
 export class AuthController {
@@ -26,8 +28,8 @@ export class AuthController {
 
 	@UseJwtAuthGuard()
 	@Post('/testJWT')
-	async testJWT(@Request() req) {
-		return this.authService.encapsulate(req.user);
+	async testJWT(@AuthUtil.GetUser() user: User) {
+		return this.authService.encapsulate(user);
 	}
 
 

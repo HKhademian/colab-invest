@@ -28,9 +28,17 @@ export class BaseEntity implements BaseEntityData {
 			(typeof base == 'string' ? base : base?._id) ||
 			undefined;
 	}
+
+	static getDate(data?: null | DateData, base?: DateData): Date | undefined {
+		if (data === null) return undefined;
+		if (data != undefined) return new Date(data);
+		return base && new Date(base);
+	}
 }
 
 export type BaseEntityData = {
 	readonly _id: string;
 	desc?: null | string;
 };
+
+export type DateData = number | string | Date;

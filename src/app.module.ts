@@ -32,10 +32,11 @@ import { GraphQLModule } from '@nestjs/graphql';
 
 		GraphQLModule.forRoot({
 			autoSchemaFile: true,
-			include: [GqlModule],
+			include: [GqlModule, AuthModule, AccountModule, SystemModule],
 			sortSchema: true,
-			// dateScalarMode: "timestamp",
-			context: ({ req }) => ({ currentUser: req.user }),
+			buildSchemaOptions: {
+				dateScalarMode: 'timestamp',
+			},
 		}),
 	],
 	controllers: [AppController],
